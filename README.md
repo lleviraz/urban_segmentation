@@ -16,7 +16,7 @@ Our model scored a [Dice]([https://towardsdatascience.com/metrics-to-evaluate-yo
 
 ## Code
 See the [notebooks](notebooks/) folder for all relevant notebooks:
-- [NB0](notebooks/NB0%20Predict.ipynb) - Preprocessing and inference only
+- [NB0](notebooks/NB0_Predict.ipynb) - Preprocessing and inference only
 - [NB1](notebooks/NB1%20Exporting%20Sentinel%202%20Images%20from%20GEE) - Download new images from Google Earth Engine
 - [NB2](notebooks/NB2%20EDA%20and%20Preprocessing%20for%20Training.ipynb) - EDA and Preprocessing for Training
 - [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb) - Minimal Preprocessing for Training or Inference
@@ -31,7 +31,7 @@ See the [notebooks](notebooks/) folder for all relevant notebooks:
 - The output will be a directory in google drive with your downloaded images.
 
 ## Inference
-- Use [NB0](notebooks/NB0%20Predict.ipynb) to preprocess and predict new masks for your downloaded images
+- Use [NB0](notebooks/NB0_Predict.ipynb) to preprocess and predict new masks for your downloaded images
 - Or if you prefer you can preprocess using [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb) and then do Inference separately using [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET))
 - The output will be a directory with the predicted masks
 
