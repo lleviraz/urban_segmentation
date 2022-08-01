@@ -2,6 +2,7 @@
 Urban segmentation on multi channel satellite images to identify Residential and Industrial built up areas
 
 MLDS MSc Final Project - Reichman University 2022
+
 ![urban segmentation pipeline](urb_seg_ppln.png) 
 
 ## Intro
