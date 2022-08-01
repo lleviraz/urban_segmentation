@@ -10,7 +10,8 @@ The model was trained on 700 [Sentinel2 GeoTiff images](https://developers.googl
 A sample input image (before and after preprocessing) and matching ESM mask:
 ![sample image](sample_input.png)
 
-
+Our model scored a [Dice]([https://towardsdatascience.com/metrics-to-evaluate-your-semantic-segmentation-model-6bcb99639aa2#:~:text=The%20Dice%20coefficient%20is%20very,similarity%20between%20predicted%20and%20truth](https://towardsdatascience.com/metrics-to-evaluate-your-semantic-segmentation-model-6bcb99639aa2)) score of 0.83 on test images and was successfully used to predict images on another part of the world:
+![sample pred](sample_pred.png)
 
 ## Code
 See the [notebooks](notebooks/) folder for all relevant notebooks:
