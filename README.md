@@ -30,10 +30,12 @@ See the [notebooks](notebooks/) folder for all relevant notebooks:
 
 ## Inference
 - Use [NB0](notebooks/NB0%20Predict.ipynb) to preprocess and predict new masks for your downloaded images
-- Or if you prefer you can preprocess using NB3 and then do Inference using [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET))
+- Or if you prefer you can preprocess using [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb) and then do Inference separately using [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET))
+- The output will be a directory with the predicted masks
 
 ## Training a new model for your data
 - Use [NB2](notebooks/NB2%20EDA%20and%20Preprocessing%20for%20Training.ipynb) (or [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb)) for Preprocessing and [NB4](notebooks/NB4%20Urban%20Segmentation%20Training%20Pipeline%20(PyTorch%20UNET)) (or [NB5](notebooks/NB5%20Urban%20Segmentation%20Pipeline%202%20(PyTorch%20DeepLabV3))) for Training
 - Use [NB7](notebooks/NB7%20Experiments_Results_Analysis.ipynb) for analyzing
+- The output will be a PyTorch model, and a directory with the predicted masks used for testing
 
 
