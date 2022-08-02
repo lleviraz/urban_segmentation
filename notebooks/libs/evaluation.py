@@ -27,12 +27,16 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 
-def evaluate(model, dl , caption,plot_cm , print_scores,device,class2desc,code2class,max_batches=10,is_deeplab=False):
+def evaluate(model, dl , caption,plot_cm , print_scores,device,class2desc,code2class,max_batches=10,is_deeplab=False,num_bands=15):
     '''
     Evaluate the models using a classification report and confusion matrix
     This works well in the case of unbalanced labels in the datasets
     '''
-    dice = torchmetrics.Dice(average='weighted',num_classes=model.n_classes)#,ignore_index=0)
+    if(is_deeplab):
+      n_cls=num_bands
+    else:
+      n_cls=model.n_classes
+    dice = torchmetrics.Dice(average='weighted',num_classes=n_cls)
     dice_arr = []
 
     if print_scores == True:
