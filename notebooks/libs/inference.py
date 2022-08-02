@@ -31,6 +31,8 @@ def predict(model, dl,device,is_deeplab=False):
     '''
     Predict new masks using a model and a dataloader
     '''
+    if(is_deeplab):
+      model.eval()
     all_preds = []
     with torch.no_grad():
       for dev_input in tqdm(dl):
