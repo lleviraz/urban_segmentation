@@ -20,9 +20,9 @@ See the [notebooks](notebooks/) folder for all relevant notebooks:
 - [NB1](notebooks/NB1%20Preprocess%20and%20Predict.ipynb) - Preprocessing and inference only
 - [NB2](notebooks/NB2%20EDA%20and%20Preprocessing%20for%20Training.ipynb) - EDA and Preprocessing for Training
 - [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb) - Minimal Preprocessing for Training or Inference
-- [NB4](notebooks/NB4%20Urban%20Segmentation%20Training%20Pipeline%20(PyTorch%20UNET)) - Training a new UNET segmentation model
-- [NB5](notebooks/NB5%20Urban%20Segmentation%20Pipeline%202%20(PyTorch%20DeepLabV3)) - Training a new DeepLabv3 segmentation model
-- [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET)) - Inference only
+- [NB4](notebooks/NB4%20Urban%20Segmentation%20Training%20Pipeline%20(PyTorch%20UNET).ipynb) - Training a new UNET segmentation model
+- [NB5](notebooks/NB5%20Urban%20Segmentation%20Pipeline%202%20(PyTorch%20DeepLabV3).ipynb) - Training a new DeepLabv3 segmentation model
+- [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET).ipynb) - Inference only
 - [NB7](notebooks/NB7%20Experiments%20Results%20Analysis.ipynb) - Training results analysis
 
 # How to use this repo
@@ -32,11 +32,11 @@ See the [notebooks](notebooks/) folder for all relevant notebooks:
 
 ## Inference
 - Use [NB1](notebooks/NB1%20Preprocess%20and%20Predict.ipynb) to preprocess and predict new masks for your downloaded images
-- Or if you prefer you can preprocess using [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb) and then do Inference separately using [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET))
+- Or if you prefer you can preprocess using [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb) and then do Inference separately using [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET).ipynb)
 - The output will be a directory with the predicted masks
 
 ## Training a new model for your data
-- Use [NB2](notebooks/NB2%20EDA%20and%20Preprocessing%20for%20Training.ipynb) (or [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb)) for Preprocessing and [NB4](notebooks/NB4%20Urban%20Segmentation%20Training%20Pipeline%20(PyTorch%20UNET)) (or [NB5](notebooks/NB5%20Urban%20Segmentation%20Pipeline%202%20(PyTorch%20DeepLabV3))) for Training
+- Use [NB2](notebooks/NB2%20EDA%20and%20Preprocessing%20for%20Training.ipynb) (or [NB3](notebooks/NB3%20Preprocessing%20for%20Inference.ipynb)) for Preprocessing and [NB4](notebooks/NB4%20Urban%20Segmentation%20Training%20Pipeline%20(PyTorch%20UNET).ipynb) (or [NB5](notebooks/NB5%20Urban%20Segmentation%20Pipeline%202%20(PyTorch%20DeepLabV3).ipynb)) for Training
 - Use [NB7](notebooks/NB7%20Experiments%20Results%20Analysis.ipynb) for analyzing
 - The output will be a PyTorch model, and a directory with the predicted masks used for testing
 
