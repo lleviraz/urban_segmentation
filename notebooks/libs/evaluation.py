@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 
-def evaluate(model, dl , caption,plot_cm , print_scores,device,class2desc,code2class,max_batches=10):
+def evaluate(model, dl , caption,plot_cm , print_scores,device,class2desc,code2class,max_batches=10,is_deeplab=False):
     '''
     Evaluate the models using a classification report and confusion matrix
     This works well in the case of unbalanced labels in the datasets
@@ -50,7 +50,10 @@ def evaluate(model, dl , caption,plot_cm , print_scores,device,class2desc,code2c
                 dev_input   = dev_input[1].to(device)
                 dev_label  = dev_label[1].to(device) 
                 #predict
-                dev_pred = model(dev_input)
+                if(is_deeplab):
+                  dev_pred = model(dev_input)['out']
+                else:
+                  dev_pred = model(dev_input)
 
                 pred_cls =  np.argmax(dev_pred.detach().cpu() , axis = 1)
                 #flatten tensors for the classification report

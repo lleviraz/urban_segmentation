@@ -27,7 +27,7 @@ import torch
 # import matplotlib.pyplot as plt
 # import matplotlib.patches as mpatches
 
-def predict(model, dl,device):
+def predict(model, dl,device,is_deeplab=False):
     '''
     Predict new masks using a model and a dataloader
     '''
@@ -37,7 +37,11 @@ def predict(model, dl,device):
           # Send tensors to GPU
           dev_input   = dev_input[1].to(device)
           #predict
-          dev_pred = model(dev_input)
+          if(is_deeplab):
+             dev_pred = model(dev_input)['out']
+          else:
+            dev_pred = model(dev_input)
+          
           pred_cls =  np.argmax(dev_pred.detach().cpu() , axis = 1)
           all_preds.append(pred_cls.cpu())
 

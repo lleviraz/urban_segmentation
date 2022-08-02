@@ -330,7 +330,7 @@ def end_epoch(e,train_loss,dev_loss,train_dice,dev_dice,verbose):
     clear_cache()  
 
 def train_loop(model, n_epochs, train_dl, dev_dl,optimizer, loss_fn,device,
-               early_stopping=15,verbose=False,n_classes=3):
+               early_stopping=15,verbose=False,n_classes=3,is_deeplab=False):
   '''
   Trains a pytorch model for number of epochs using traing and optional dev dataloaders
   Using a given optimizer and loss function
@@ -359,7 +359,11 @@ def train_loop(model, n_epochs, train_dl, dev_dl,optimizer, loss_fn,device,
           image_tensor   = train_input[1].to(device)
           mask_tensor  = train_label[1].to(device) 
 
-          pred = model(image_tensor)
+          if(is_deeplab):
+            pred = model(image_tensor)['out']
+          else:
+            pred = model(image_tensor)
+            
           loss   = criterion(pred, mask_tensor)
           loss.backward()
           optimizer.step()
@@ -409,7 +413,10 @@ def train_loop(model, n_epochs, train_dl, dev_dl,optimizer, loss_fn,device,
               dev_label  = dev_label[1].to(device)
 
               # predict 
-              dev_pred = model(dev_input)
+              if(is_deeplab):
+                dev_pred = model(dev_input)['out']
+              else:
+                dev_pred = model(dev_input)
               #loss
               loss   = criterion(dev_pred, dev_label)
               
