@@ -25,6 +25,8 @@ See the [notebooks](notebooks/) folder for all relevant notebooks:
 - [NB6](notebooks/NB6%20Inference%20Pipeline%20(PyTorch%20UNET).ipynb) - Inference only
 - [NB7](notebooks/NB7%20Experiments%20Results%20Analysis.ipynb) - Training results analysis
 
+**Note:** here is a link to a Youtube playlist with some "walkthrough" videos for the download and inference parts [click here](https://youtube.com/playlist?list=PLQSmztpAE0KeKD9sWmX5D3PNuLWXZ46Tj)
+
 # How to use this repo
 ## Downloading new Satellite images for prediction
 - Use [NB0](notebooks/NB0%20Exporting%20Sentinel%202%20Images%20from%20GEE.ipynb) to download new images, you will need a [GEE account](https://code.earthengine.google.com/) and a Google Drive with free space for storing the images.
