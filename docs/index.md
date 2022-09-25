@@ -1,4 +1,16 @@
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 70%;"><img src="images/bg.png"></p> 
+<head>
+<style>
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
+</style>
+</head>
+
+<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 70%;"><img src="images/bg.png"></p>
+
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
 Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl
@@ -24,7 +36,7 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 - 700, 10 meters resolution, satellite images of Europe - 11 bands (channels) – extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
 - 700 Masks of Residential vs Non Residential areas (“Blue”,“Red” below) – this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
-<table border=1 style="text-align:center;">
+<table border=1 class="center">
 <tr>
 <td><img src='images/input.png' height='220px'/></td>
 <td><img src='images/mask.png' height='220px'/></td></tr>
@@ -46,12 +58,14 @@ Orignially the dataset includes the following 11 bands:
 
 The aim of this project is to carry out Semantic Segmentation on space-borne derived data. The project is expected to provide a ML algorithm that will divide the identified built-up areas into different building classes (Residential and Non-Residential) for the general use of sustainability research and/or others.
 Given a set of satellite images and corresponding masks for these images, detailing which segments are residential and which are non residential, we trained a model to perform image segmentation and then used this model for inferring the segments of new unseen satellite images, and to calculate the proportion of residential and non residential areas in every image.
-<img src='images/image7.png'  width="450px"/>
+
+<img src='images/image7.png'  width="550px"/>
 
 
 <h2>The methods we used </h2>
 
 For Image Segmentation use cases, and more specifically for Satellite images segmentation, one of the most popular approaches is to use a neural network which is a flavor of the [U-Net architecture](https://en.wikipedia.org/wiki/U-Net) (originally developed for biomedical image segmentation). The network is based on the fully convolutional neural network, where the name “U-NET” comes from its U-shaped encoder-decoder network architecture, which originally consisted of 4 encoder blocks and 4 decoder blocks that are connected via a latent space. The encoder halves the spatial dimensions and doubles the number of filters (feature channels) at each encoder block, and the decoder doubles the spatial dimensions and halves the number of feature channels
+
 <img src="images/image5.png"  width="300px"/>
 
 Image source [U-net from paperswithcode](https://paperswithcode.com/method/u-net)
@@ -101,7 +115,7 @@ The original four classes in the mask are shown below, however we merged classes
 - 1 for all other areas (merged into class 0 in before training)
 - **0** for no-data
 
-<table border=1 style="margin-left: auto;  margin-right: auto; text-align:center;">
+<table border=1 class="center">
 <tr>
 <td><img src='images/image23.png'  width="400px"/></td>
 <tr>
@@ -113,6 +127,7 @@ The images dimensions are approx. 300x300 and the masks 200x200, and in addition
 
 <br>
 The following plot shows the BU area proportion in the preprocessed masks (blue dots) compared to the original mask (orange diagonal line), we believe that these results are showing that the preprocessing kept the original BU area proportions quite nicely:
+
 <img src="images/image27.png"  width="400px"/>
 
 The following histogram shows the same information, the preservation of the proportions of the BU area classes before (red) and after (blue) the reprojection of the mask onto the CRS of the matching image – for the entire dataset. As a reminder the train dataset was extracted based on specific range of class proportions in an image, meaning only images that had a BU Area class proportions (Residential + Non Residential vs others…) between 17% and 85% were selected - we use this plots to validate the class proportions after preprocessing - we see only very few ‘misses’:
@@ -210,7 +225,7 @@ We used an **AdamW** optimizer with learning rate of **5e-04** and weight decay 
 To load the data efficiently in batches in the training loop, we created our own Pytorch Dataset class  “S2ESMDataset” (code can be found [here](/notebooks/libs/training.py))
 
 
-<table border=1 style="margin-left: auto;  margin-right: auto; text-align:center;">
+<table border=1 class="center">
 <tr>
 <td><img src='images/image9.png'/></td>
 <tr>
