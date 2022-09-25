@@ -1,4 +1,4 @@
-<img src="images/bg.png"  width="500px"/>
+<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 70%;"><img src="images/bg.png"></p> 
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
 Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl
@@ -24,7 +24,7 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 - 700, 10 meters resolution, satellite images of Europe - 11 bands (channels) – extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
 - 700 Masks of Residential vs Non Residential areas (“Blue”,“Red” below) – this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
-<table border=1 style="margin-left: center;  margin-right: center; text-align:center;">
+<table border=1 style="text-align:center;">
 <tr>
 <td><img src='images/input.png' height='220px'/></td>
 <td><img src='images/mask.png' height='220px'/></td></tr>
