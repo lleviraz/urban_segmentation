@@ -19,7 +19,7 @@ Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl
 ) and [Alon Oring](alon.oring88@gmail.com
 ) (RU school of CS)
 
-By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)
+<p class="center">By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)</p>
 
 
 <h1>Abstract</h1>
@@ -130,6 +130,7 @@ The following plot shows the BU area proportion in the preprocessed masks (blue 
 
 <img src="images/image27.png"  width="400px"/>
 
+
 The following histogram shows the same information, the preservation of the proportions of the BU area classes before (red) and after (blue) the reprojection of the mask onto the CRS of the matching image – for the entire dataset. As a reminder the train dataset was extracted based on specific range of class proportions in an image, meaning only images that had a BU Area class proportions (Residential + Non Residential vs others…) between 17% and 85% were selected - we use this plots to validate the class proportions after preprocessing - we see only very few ‘misses’:
 
 <img src="images/image25.png"  width="400px"/>
@@ -137,31 +138,32 @@ The following histogram shows the same information, the preservation of the prop
 
 <h3>Feature Engeneering</h3>
 
-Based on some recommendations and references dealing with similar tasks ([this paper<sup>12</sup>](https://www.researchgate.net/publication/330994618_Separating_Built-Up_Areas_from_Bare_Land_in_Mediterranean_Cities_Using_Sentinel-2A_Imagery)), we added 4 additional channels to every image(originally exported with 11 bands), which are a combination of the existing channels.
+Based on some recommendations and references dealing with similar tasks ([this paper<sup>12</sup>](https://www.researchgate.net/publication/330994618_Separating_Built-Up_Areas_from_Bare_Land_in_Mediterranean_Cities_Using_Sentinel-2A_Imagery)), we added 4 additional channels to every image(originally exported with 11 bands), which are a combination of the existing channels
+
 
 <img src="images/image26.png" width="400px"/>
 
-
 Here are the final 15 bands used in the model training:
 
+1. 'B1_Blue',
+2. 'B2_Green',
+3. 'B3_Red',
+4. 'B4_Red_Edge_1',
+5. 'B5_Red_Edge_2',
+6. 'B6_Red_Edge_3',
+7. 'B7_NIR',
+8. 'B8_Red_Edge_4',
+9. 'B9_Water_vapor',
+10. 'B10_SWIR_1',
+11. 'B11_SWIR_2',
+12. 'B12_NDVI', #added by us
+13. 'B13_NDTI', #added in us
+14. 'B14_NDVIre', #added by us
+15. 'B15_MNDWI' #added by us
 
-    1. 'B1_Blue',
-    2. 'B2_Green',
-    3. 'B3_Red',
-    4. 'B4_Red_Edge_1',
-    5. 'B5_Red_Edge_2',
-    6. 'B6_Red_Edge_3',
-    7. 'B7_NIR',
-    8. 'B8_Red_Edge_4',
-    9. 'B9_Water_vapor',
-    10. 'B10_SWIR_1',
-    11. 'B11_SWIR_2',
-    12. 'B12_NDVI', #added by us
-    13. 'B13_NDTI', #added in us
-    14. 'B14_NDVIre', #added by us
-    15. 'B15_MNDWI' #added by us
 
 <img src="images/image28.png"  width="600px"/>
+
 
 A full description of the original 11 bands can be found on the [Sentinel 2 page](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en#bands), as for the 4 additional bands we engineered them based on our mentors suggestion and the following [ paper<sup>12</sup>](https://www.researchgate.net/publication/330994618_Separating_Built-Up_Areas_from_Bare_Land_in_Mediterranean_Cities_Using_Sentinel-2A_Imagery).
 
