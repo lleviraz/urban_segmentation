@@ -4,12 +4,14 @@
   margin-left: auto;
   margin-right: auto;
   text-align:center;
+  display: block;
 }
+
 
 </style>
 </head>
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 70%;"><img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/"></p>
+<img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/" class="center" width="600px">
 
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
@@ -19,7 +21,7 @@ Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl
 ) and [Alon Oring](alon.oring88@gmail.com
 ) (RU school of CS)
 
-<p class="center">By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)</p>
+By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)
 
 
 <h1>Abstract</h1>
@@ -178,12 +180,12 @@ To deal with that we experimented with a few metrics:
 
 1. **IoU (Jaccard Index), Dice Score** - both measure the overlap of the predicted mask and the original one. Intuitively, a successful prediction is one which maximizes the overlap between the predicted and true objects.  The IoU and Dice scores are calculated **for each class separately** and then averaged over all classes to provide a global, mean IoU and Dice scores
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="images/image3.png" height="50px"></p>
+<img src="images/image3.png" height="50px" class="center">
 
 2. **Pixel Accuracy (Foreground and overall)**
 Report the percent of correctly classified pixels in the mask, The pixel accuracy is reported for each class separately as well as globally across all classes.(accuracy of the 250 and 250 classes only, ignoring the background classes)
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="images/image16.png" height="50px"></p>
+<img src="images/image16.png" class="center" height="50px">
 
 Eventually we measured the model performance using the **Foreground accuracy and the Dice Score**.
 
@@ -193,22 +195,22 @@ For the same class imbalance issue we experimented with the following loss funct
 Predicted Mask is a pixel wise probability for each class
 Each pixel can belong to exactly one target class
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="images/image15.png" height="50px"></p>
+<img src="images/image15.png" height="50px" class="center">
 
 2. Focal Loss
 Works best with highly-imbalanced dataset, easy-to-classify observations are down-weighted in the loss calculation
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="images/image20.png" height="50px"></p>
+<img src="images/image20.png" height="50px" class="center">
 
 3. Dice Loss
 Inspired by the Dice Coefficient, a metric to evaluate the overlapping areas  (good at FG vs BG but less in ‘easy-to-classify’ vs hard)
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="images/image19.png" height="50px"></p> 
+<img src="images/image19.png" height="50px" class="center">
 
 4. Combined Dice Focal
 Combined Focal and Dice Loss, to balance between global (Dice) and local (Focal) features on the target mask
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="images/image18.png" height="50px"></p> 
+<img src="images/image18.png" height="50px" class="center">
 
 Initially when using the [Fastai framework,](https://docs.fast.ai/) the best results were obtained using a [‘combined Focal and Dice loss’](https://docs.fast.ai/losses.html#DiceLoss) , which is able to balance between global (Dice) and local (Focal) features on the target mask, but when switching to a more simple Pytorch implementation, the **CrossEntropyLossFlat** was working better in our training procedure.
 
@@ -251,7 +253,7 @@ We had to develop some augmentation enhancements for enabling them to work with 
 
 Using the augmentations, especially a very mild “2 pixels” Random Sized Crop, solved an interesting problem where the model tended to predict the non residential class close to the image borders as seen in the image below (squares with red borders on the left):
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;"><img src="images/image29.png" width='500px'></p> 
+<img src="images/image29.png" width='500px' class="center">
 
 The image above shows our predictions on the SAITAMA area in Japan, this area is considered as an unseen test data, the model was not trained on it, still we can see quite nice results (on the right image)
 
@@ -288,7 +290,7 @@ We were able to get an average of 0.889 Dice on the evaluation data:
 
 Model evaluation is done in two ways, a Dice score calculation and a visual inspection between the true and predicted masks:
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;"><img src="images/image10.png" width='600px'></p>
+<img src="images/image10.png" width='600px' class="center">
 
 
 Here is a again the plot presented in the preprocessing section, where we can see the comparison of the BU area ratio of the predicted masks (the blue dots) compared to the the orange diagonal line which represents the BU area ground truth of the test set.
