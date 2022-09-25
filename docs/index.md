@@ -249,7 +249,7 @@ We had to develop some augmentation enhancements for enabling them to work with 
 
 Using the augmentations, especially a very mild “2 pixels” Random Sized Crop, solved an interesting problem where the model tended to predict the non residential class close to the image borders as seen in the image below (squares with red borders on the left):
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;"><img src="images/image29.png" ></p> 
+<p style="display: block;  margin-left: auto;  margin-right: auto;"><img src="images/image29.png" width='500px'></p> 
 
 The image above shows our predictions on the SAITAMA area in Japan, this area is considered as an unseen test data, the model was not trained on it, still we can see quite nice results (on the right image)
 
@@ -282,34 +282,41 @@ We were able to get an average of 0.889 Dice on the evaluation data:
 </tr>
 </table>
 
-	       
-
-
-
-
 <h2>Results</h2>
+
 Model evaluation is done in two ways, a Dice score calculation and a visual inspection between the true and predicted masks:
 
+<p style="display: block;  margin-left: auto;  margin-right: auto;"><img src="images/image10.png" width='600px'></p>
 
-Here is a plot of the best predicted masks, where the BU area ratio difference on the test set is less than 1%:
 
-The orange diagonal line represents the BU area ground truth of the test set, the blue dots are the predictions.
+Here is a again the plot presented in the preprocessing section, where we can see the comparison of the BU area ratio of the predicted masks (the blue dots) compared to the the orange diagonal line which represents the BU area ground truth of the test set.
+
 Roughly speaking the distance from the line is the error margin of every image, and we can see the high correlation (we used Spearman) between the predictions and the ground truth:
 
+<img src="images/image11.png"  width="400px"/>
 
 Here we calculated the BU Area proportion mean error of our model along with its confidence intervals for the global BU area in the middle (both  non-residential (250) plus residential (255) vs. the other pixels), and also for every class separately:
 
-Here is a comparison of the original (blue) vs predicted (orange) BU area distribution, we can see that the prediction is doing quite a nice job achieving almost the same distributions for the non-residential (250) and residential (255) classes.
+<img src="images/image21.png"  width="200px"/>
 
 
-Finally, here is a sample prediction on unseen data in SAITAMA, Japan, the image is generated using the Google Earth Engine APIs, and contains 16 predicted urban segmentation masks.
+Here is a comparison of the original (blue) vs predicted (orange) BU area distribution, we can see that the prediction is doing quite a nice job achieving almost the same distributions for the non-residential (250) and residential (255) classes:
+
+<img src="images/dist.png"  width="400px"/>
+
+
+
+Finally, here is a sample prediction on unseen data in [SAITAMA, Japan](https://en.wikipedia.org/wiki/Saitama_(city)), the image is generated using the Google Earth Engine APIs, and contains 16 predicted urban segmentation masks.
 There are 3 layers in it:
-1, The original map from Google Earth (background)
+
+1. The original map from Google Earth (background)
 2. The Sentinel2 surface satellite  images (grayish)
 3. Our prediction mask, in green(residential), red(non-residential)
 
+<img src="images/image12.png"  width="500px"/>
 
 <h2>Summary</h2>
+
 We learned a lot from this project, mainly the machine learning aspects , but also about managing such an interactive project with the stakeholders, and evolving requirements.
 We had monthly meetings with our mentors to present the project’s status and collect their feedback.
 Although at a very early stage of the project, we got some nice results, the research effort that was required to improve and get our final results was not negligible. We had to learn how to work with the multi-bands images, and deep dive into the UNET architecture.
@@ -323,7 +330,10 @@ We learned a few important tips along the way:
 
 Our final product is a github repository which supports the following “Urban segmentation pipeline”.
 Typically this can be used to export new images, preprocess them and infer their urban segmentation masks.
-A more advanced use case can be to train new models based on new future data - all the prerequisites and running instructions can be found in the repo itself: “how to use this repo” 
+A more advanced use case can be to train new models based on new future data - all the prerequisites and running instructions can be found in the repo itself: [“how to use this repo”](https://github.com/lleviraz/urban_segmentation#how-to-use-this-repo) 
+
+<img src="images/image6.png"  width="500px"/>
+
 
 <h2>Next Steps and Future directions</h2>
 
@@ -331,27 +341,28 @@ The ESM data we were using is from 2019, a periodic retraining of the model with
 A possible future enhancement can be to look at a sequence of images and masks along a period of time, and build a model that can predict the urban segmentation proportion changes over time.
 
 <h2>Code and resources</h2>
-See the Git repo: https://github.com/lleviraz/urban_segmentation
+See the [Git repo](https://github.com/lleviraz/urban_segmentation)
 
 <h2>References</h2>
 
 <h3>Data sources and frameworks</h3>
-- Sentinel 2 surface imagery on Google Earth Engine (source for the satellite images)
-- Copernicus - ESM data 2019 release (source for the segmentation masks)
-- U-Net Explained | Papers With Code 
-- DeepLabv3 Explained | Papers With Code 
-- Fastai framework- https://www.fast.ai/
-- Rasterio
+
+1. [Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en) (source for the satellite images)
+2. [Copernicus](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) - ESM data 2019 release (source for the segmentation masks)
+3. [U-Net Explained](https://paperswithcode.com/method/u-net) | Papers With Code 
+4. [DeepLabv3 Explained](https://paperswithcode.com/method/deeplabv3) | Papers With Code 
+5. [Fastai framework](https://www.fast.ai/)
+6. [Rasterio](https://rasterio.readthedocs.io/en/latest/)
 
 <h3>Papers</h3>
-- Semantic Segmentation and Edge Detection (Ghandorh H. et al 2022)
-- Focal Loss for Dense Object Detection   (Tsung-Yi Lin et al. 2018) 
-- Evaluation of Semantic Segmentation Methods for Land Use with Spectral Imaging Using Sentinel-2 and PNOA Imagery (Oscar D. Pedrayes et al. 2021) - results for comparison
-- Unified Focal loss: Generalizing Dice and cross entropy-based losses to handle class imbalanced medical image segmentation (Michael Yeung et al. 2021) 
-- Feature selection of Sentinel2 imagery (Zolo Kiala et al. 2019)
-Separating Built-Up Areas from Bare Land in Mediterranean Cities Using Sentinel-2A Imagery
-(Paria Ettehadi et al. 2019) - additional bands, feature engineering 
-- Loss functions for image segmentation: https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch/notebook
+
+7. [Semantic Segmentation and Edge Detection](https://www.mdpi.com/1471460) (Ghandorh H. et al 2022)
+8. [Focal Loss for Dense Object Detection](https://arxiv.org/pdf/1708.02002.pdf)(Tsung-Yi Lin et al. 2018) 
+9. [Evaluation of Semantic Segmentation Methods for Land Use with Spectral Imaging Using Sentinel-2 and PNOA Imagery](https://www.mdpi.com/2072-4292/13/12/2292/htm) (Oscar D. Pedrayes et al. 2021) - results for comparison
+10. [Unified Focal loss: Generalizing Dice and cross entropy-based losses to handle class imbalanced medical image segmentation](https://arxiv.org/abs/2102.04525) (Michael Yeung et al. 2021) 
+11. [Feature selection of Sentinel2 imagery](https://www.mdpi.com/2072-4292/11/16/1892/htm) (Zolo Kiala et al. 2019)
+12. [Separating Built-Up Areas from Bare Land in Mediterranean Cities Using Sentinel-2A Imagery](https://www.researchgate.net/publication/330994618_Separating_Built-Up_Areas_from_Bare_Land_in_Mediterranean_Cities_Using_Sentinel-2A_Imagery)(Paria Ettehadi et al. 2019) - additional bands, feature engineering 
+13. [Loss functions for image segmentation](https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch/notebook)
 
 
 <b>Thanks for reading</b>
