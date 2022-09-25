@@ -9,7 +9,7 @@
 </style>
 </head>
 
-<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 70%;"><img src="images/bg.png"></p>
+<p style="display: block;  margin-left: auto;  margin-right: auto;  width: 70%;"><img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/"></p>
 
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
