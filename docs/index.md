@@ -1,25 +1,11 @@
-<!DOCTYPE html>
-<html>
-
-
-<head>
-
-<style>
-    
+<head><style>    
 .center {
   margin-left: auto;
   margin-right: auto;
   text-align:center;
   /* display: block; */
-}
+}</style></head>
 
-</style>
-
-<title>Semantic Segmentation of Built-Up Areas in Satellite Imagery</title>
-
-</head>
-
-<body>
 
 <img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/" class="center" style="display: block;" width="600px">
 
@@ -49,8 +35,8 @@ Given a set of satellite images and corresponding masks for these images, detail
 
 Our dataset is a collection of satellite images downloaded from Google Earth and their matching manually classified mask images, for residential and non residential areas.
 
-- 700 satellite images of Europe - 11 bands (channels), 10 meters resolution – extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
-- 700 Masks of Residential vs Non Residential areas (“Blue”,“Red” below) – this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
+- 700 satellite images of Europe - 11 bands (channels), 10 meters resolution , extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
+- 700 Masks of Residential vs Non Residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
 <table border=1 class="center">
 
@@ -83,25 +69,25 @@ Orignially the dataset includes the following 11 bands:
 
 <h2>The methods we used </h2>
 
-For Image Segmentation use cases, and more specifically for Satellite images segmentation, one of the most popular approaches is to use a neural network which is a flavor of the [U-Net architecture](https://en.wikipedia.org/wiki/U-Net) (originally developed for biomedical image segmentation). The network is based on the fully convolutional neural network, where the name “U-NET” comes from its U-shaped encoder-decoder network architecture, which originally consisted of 4 encoder blocks and 4 decoder blocks that are connected via a latent space. The encoder halves the spatial dimensions and doubles the number of filters (feature channels) at each encoder block, and the decoder doubles the spatial dimensions and halves the number of feature channels
+For Image Segmentation use cases, and more specifically for Satellite images segmentation, one of the most popular approaches is to use a neural network which is a flavor of the [U-Net architecture](https://en.wikipedia.org/wiki/U-Net) (originally developed for biomedical image segmentation). The network is based on the fully convolutional neural network, where the name "U-NET" comes from its U-shaped encoder-decoder network architecture, which originally consisted of 4 encoder blocks and 4 decoder blocks that are connected via a latent space. The encoder halves the spatial dimensions and doubles the number of filters (feature channels) at each encoder block, and the decoder doubles the spatial dimensions and halves the number of feature channels
 
 <img src="images/image5.png"  width="300px"/>
 
 Image source [U-net from paperswithcode](https://paperswithcode.com/method/u-net)
 
-In addition we also experimented with the “DeepLabV3” which is currently considered to be the state of the art for image segmentation, however in our experiments we got slightly better results with UNET.
+In addition we also experimented with the "DeepLabV3" which is currently considered to be the state of the art for image segmentation, however in our experiments we got slightly better results with UNET.
 
 <h2>Major challenges</h2>
 
-1. One of the main challenges was to learn how to work with **multi-channel GeoTIFF images**, instead of the ‘default’ RGB channels; more details on how we approached it in the next section.
+1. One of the main challenges was to learn how to work with **multi-channel GeoTIFF images**, instead of the "default" RGB channels; more details on how we approached it in the next section.
 
 2. **Class imbalance** - usually in satellite images this is the case where the background (uninteresting class) captures most of the image, more details on how we approached it in the next section.
 
-3. **Masks data is available for Europe only** – training can be done on Europe only, thus it is most likely that we will experience distribution drift and inference performance on areas with different characteristics than Europe will be poor. However, since the end purpose is to infer on a “Continent level” – it is possible that the error will be reasonable. Another future direction can be to use additional annotated data for methods such as Transfer Learning. 
+3. **Masks data is available for Europe only** - training can be done on Europe only, thus it is most likely that we will experience distribution drift and inference performance on areas with different characteristics than Europe will be poor. However, since the end purpose is to infer on a "Continent level" - it is possible that the error will be reasonable. Another future direction can be to use additional annotated data for methods such as Transfer Learning. 
 
-4. Masks of residential vs non-residential were created by an algorithm we don’t have access to, so the model we will create will basically imitate these results (including the errors…)
+4. Masks of residential vs non-residential were created by an algorithm we don't have access to, so the model we will basically learn to imitate these results (including the errors!)
 
-5. Data export – the data export process from Google Earth engine is a very sensitive one, in order to provide an end-2-end pipeline of data export and inference, we learned to work with the GEE for exporting new images.
+5. Data export - the data export process from Google Earth engine is a very sensitive one, in order to provide an end-2-end pipeline of data export and inference, we learned to work with the GEE for exporting new images.
 
  
 <h2>Related work</h2>
@@ -120,7 +106,7 @@ This project does not follow any particular single anchor paper, however the met
 
 <h2>Preprocessing</h2>
 
-As mentioned before, one of the main challenges was to learn how to work with multi-channel GeoTIFF images, instead of the ‘default’ RGB channels.
+As mentioned before, one of the main challenges was to learn how to work with multi-channel GeoTIFF images, instead of the "default" RGB channels.
 We used the [Rasterio python library](https://rasterio.readthedocs.io/en/latest/) which gives access to geospatial raster data processing and manipulation.
 The Coordinate Reference Systems (CRS) of the images (11 channels from ESPG-3857) and matching masks (1 channel with 4 classes, from ESPG-3035, downloaded from [Copernicus](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata)) was not aligned, and we had to perform some **reprojection** in order to align the mask to the images, while trying preserve the proportions of the classes in the mask.
 
@@ -153,7 +139,7 @@ The following plot shows the BU area proportion in the preprocessed masks (blue 
 <img src="images/image27.png"  width="400px"/>
 
 
-The following histogram shows the same information, the preservation of the proportions of the BU area classes before (red) and after (blue) the reprojection of the mask onto the CRS of the matching image – for the entire dataset. As a reminder the train dataset was extracted based on specific range of class proportions in an image, meaning only images that had a BU Area class proportions (Residential + Non Residential vs others…) between 17% and 85% were selected - we use this plots to validate the class proportions after preprocessing - we see only very few ‘misses’:
+The following histogram shows the same information, the preservation of the proportions of the BU area classes before (red) and after (blue) the reprojection of the mask onto the CRS of the matching image for the entire dataset. As a reminder the train dataset was extracted based on specific range of class proportions in an image, meaning only images that had a BU Area class proportions (Residential + Non Residential vs others) between 17% and 85% were selected - we use this plots to validate the class proportions after preprocessing - we see only very few "misses":
 
 <img src="images/image25.png"  width="400px"/>
 
@@ -190,9 +176,9 @@ We experimented with and without the 4 new channels and got small improvements i
 
 <h3>Metrics and Loss functions</h3>
 
-The major issue in our model training task is the **class imbalance**, where more than 60% of the pixels are of the ‘1-other’ class, while we are interested in the proportions of the 250 (for non-residential BU) and 255 (for residential BU) classes (which are usually together only ~30% of the pixels) – this is typically the case with satellite imagery segmentation tasks, where the background is capturing most of the image (and also with biomedical images) .
+The major issue in our model training task is the **class imbalance**, where more than 60% of the pixels are of the "1-other" class, while we are interested in the proportions of the 250 (for non-residential BU) and 255 (for residential BU) classes (which are usually together only ~30% of the pixels). This is typically the case with satellite imagery segmentation tasks, where the background is capturing most of the image (and also with biomedical images) .
 
-Using a plain “accuracy” metric in such cases would yield to high accuracy but poor results (the model can naively predict the background class always, and get a high pixel wise accuracy for most images - e.g. we can get 83% accuracy for images with only 17% important classes pixels, by just predicting the ‘background’ class )
+Using a plain "accuracy" metric in such cases would yield to high accuracy but poor results (the model can naively predict the background class always, and get a high pixel wise accuracy for most images - e.g. we can get 83% accuracy for images with only 17% important classes pixels, by just predicting the "background" class )
 
 To deal with that we experimented with a few metrics:
 
@@ -221,7 +207,7 @@ Works best with highly-imbalanced dataset, easy-to-classify observations are dow
 <img src="images/image20.png" height="50px" class="center">
 
 3. Dice Loss
-Inspired by the Dice Coefficient, a metric to evaluate the overlapping areas  (good at FG vs BG but less in ‘easy-to-classify’ vs hard)
+Inspired by the Dice Coefficient, a metric to evaluate the overlapping areas  (good at FG vs BG but less in "easy-to-classify" vs hard)
 
 <img src="images/image19.png" height="50px" class="center">
 
@@ -230,7 +216,7 @@ Combined Focal and Dice Loss, to balance between global (Dice) and local (Focal)
 
 <img src="images/image18.png" height="50px" class="center">
 
-Initially when using the [Fastai framework,](https://docs.fast.ai/) the best results were obtained using a [‘combined Focal and Dice loss’](https://docs.fast.ai/losses.html#DiceLoss) , which is able to balance between global (Dice) and local (Focal) features on the target mask, but when switching to a more simple Pytorch implementation, the **CrossEntropyLossFlat** was working better in our training procedure.
+Initially when using the [Fastai framework,](https://docs.fast.ai/) the best results were obtained using a ["Combined Focal and Dice loss"](https://docs.fast.ai/losses.html#DiceLoss) , which is able to balance between global (Dice) and local (Focal) features on the target mask, but when switching to a more simple Pytorch implementation, the **CrossEntropyLossFlat** was working better in our training procedure.
 
 <h3>Model Training</h3>
 
@@ -244,7 +230,7 @@ We split the data to 90%-10% train/test split, and used a clean Pytorch UNET imp
 2. We added dropout (0.15-0.3) to fight overfitting
 
 We used an **AdamW** optimizer with learning rate of **5e-04** and weight decay of **1e-04**, and a small batch size of **6** because of our Google Colab GPU capacity limitations.
-To load the data efficiently in batches in the training loop, we created our own Pytorch Dataset class  “S2ESMDataset” (code can be found [here](/notebooks/libs/training.py))
+To load the data efficiently in batches in the training loop, we created our own Pytorch Dataset class  "S2ESMDataset" (code can be found [here](/notebooks/libs/training.py))
 
 
 <table border=1 class="center">
@@ -276,7 +262,7 @@ Then to **generalize** the model we used the 90-10 train-test split, and applied
 
 We had to develop some augmentation enhancements for enabling them to work with our multi bands images (default as usual was working with 3 only e.g.RGB channels)
 
-Using the augmentations, especially a very mild “2 pixels” Random Sized Crop, solved an interesting problem where the model tended to predict the non residential class close to the image borders as seen in the image below (squares with red borders on the left):
+Using the augmentations, especially a very mild "2 pixels" Random Sized Crop, solved an interesting problem where the model tended to predict the non residential class close to the image borders as seen in the image below (squares with red borders on the left):
 
 <img src="images/image29.png" width='500px' class="center">
 
@@ -358,13 +344,13 @@ There are 3 layers in it:
 
 We learned a lot from this project, mainly the machine learning aspects , but also about managing such an interactive project with the stakeholders, and evolving requirements.
 
-We conducted monthly meetings with our mentors to present the project’s status and collect their feedback.
+We conducted monthly meetings with our mentors to present the project status and collect their feedback.
 
 Although at a very early stage of the project, we got some nice results, the research effort that was required to improve and get our final results was not negligible. 
 
 We had to learn how to work with the multi-bands images, and deep dive into the UNET architecture.
 
-A key moment to mention was when we were stuck for sometime with some medium quality results which we got quite easily with fastai, and then after consulting our mentors, we decided to ‘start from scratch’ and to revert to a plain PyTorch implementation. That, and applying some normalization over the input images - gave us the final results which are reported here.
+A key moment to mention was when we were stuck for sometime with some medium quality results which we got quite easily with fastai, and then after consulting our mentors, we decided to "start from scratch" and to revert to a plain PyTorch implementation. That, and applying some normalization over the input images - gave us the final results which are reported here.
 
 We learned a few important tips along the way:
 
@@ -376,11 +362,11 @@ We learned a few important tips along the way:
 
 - Apply only ONE CHANGE in every experiment and observe its effect.
 
-Our final product is a github repository which supports the following “Urban segmentation pipeline”; Typically it can be used to export new images, preprocess them and infer their urban segmentation masks.
+Our final product is a github repository which supports the following "Urban segmentation pipeline"; Typically it can be used to export new images, preprocess them and infer their urban segmentation masks.
 
 A more advanced use case can be to train new models based on new future data - all the prerequisites and running instructions can be found in the repo itself: 
 
-[“how to use this repo”](https://github.com/lleviraz/urban_segmentation#how-to-use-this-repo) 
+["how to use this repo"](https://github.com/lleviraz/urban_segmentation#how-to-use-this-repo) 
 
 <img src="images/image6.png"  width="500px"/>
 
@@ -392,6 +378,7 @@ The ESM data we were using is from 2019, a periodic retraining of the model with
 A possible future enhancement can be to look at a sequence of images and masks along a period of time, and build a model that can predict the urban segmentation proportion changes over time.
 
 <h2>Code and resources</h2>
+
 The code and trained model can be found at the: 
 
 [Github repo](https://github.com/lleviraz/urban_segmentation)
@@ -429,7 +416,4 @@ The code and trained model can be found at the:
 13. [Loss functions for image segmentation](https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch/notebook)
 
 
-<b>Thanks for reading</b>
-
-</body>
-</html>
+**Thanks for reading**
