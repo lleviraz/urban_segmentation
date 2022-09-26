@@ -9,7 +9,7 @@
 </style>
 </head>
 <body>
-<img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/" class="center" width="600px">
+<img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/" class="center" style="display: block;" width="600px">
 
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
@@ -43,7 +43,8 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 <table border=1 class="center">
 <tr>
 <td><img src='images/input.png' height='220px'/>
-<td><img src='images/mask.png' height='220px'/></tr>
+<td><img src='images/mask.png' height='220px'/>
+</tr>
 <tr>
 <td>An example of an input image
 </td>
@@ -114,6 +115,8 @@ The original four classes in the mask are shown below, however we merged classes
 <table border=1 class="center">
 <tr>
 <td><img src='images/image23.png'  width="400px"/></td>
+</tr>
+
 <tr>
 <td>The image above shows a specific example of a mask before and after the reprojection
 The images dimensions are approx. 300x300 and the masks 200x200, and in addition the CRS of the mask is different. The preprocessing takes care of both aligning the CRS of the mask to its matching image, and align all the images and masks to be in 300x300 resolution, which explains why the pixel counts is much higher for every class
@@ -226,6 +229,7 @@ To load the data efficiently in batches in the training loop, we created our own
 <table border=1 class="center">
 <tr>
 <td><img src='images/image9.png'/></td>
+</tr>
 <tr>
 <td>A sample of an input image before and after MinMax scaling and the corresponding mask 
 (on the True mask: blue is residential, red for non-residential and green is other)
@@ -260,6 +264,7 @@ We were able to get an average of 0.889 Dice on the evaluation data:
 <tr>
 <td><img src='images/image13.png'/></td>
 <td><img src='images/conf_mtx.png'/></td>
+</tr>
 
 <tr>
 <td>Training and validation loss		      Training and validation Dice score
@@ -273,7 +278,7 @@ We were able to get an average of 0.889 Dice on the evaluation data:
 <tr>
 <td><img src='images/image22.png'/></td>
 <td><img src='images/cls_report.png'/></td>
-
+</tr>
 <tr>
 <td>Dice score results per loss function (maximum and average)
 </td>
