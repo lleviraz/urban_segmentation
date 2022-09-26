@@ -4,25 +4,23 @@
   margin-left: auto;
   margin-right: auto;
   text-align:center;
-  display: block;
+  /* display: block; */
 }
-
-
 </style>
 </head>
-
+<body>
 <img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/" class="center" width="600px">
 
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
-Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl
-) (Leiden University),[Yoav Peled](yoav.pld@gmail.com
-) (RU school of Sustainability),[Leon Anavy](leon.anavy@gmail.com
-) and [Alon Oring](alon.oring88@gmail.com
-) (RU school of CS)
+
+Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl) (Leiden University),[Yoav Peled](yoav.pld@gmail.com) (RU school of Sustainability),[Leon Anavy](leon.anavy@gmail.com) and [Alon Oring](alon.oring88@gmail.com) (RU school of CS)
+
+<div class="center">
 
 By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)
 
+</div>
 
 <h1>Abstract</h1>
 
@@ -31,6 +29,13 @@ By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@
 Satellite-based sensors capture imagery in visible light and in other wavelengths such as infrared and radar, which reveals a view of heterogeneous environments, composed of natural, agricultural, and built-up areas. These, in turn, vary between different contexts, including natural ones such as continents, climates, water bodies and biomes, and man-made ones such as economic activities, population densities, architectural styles, and urban planning. 
 Global environmental change is caused by expansion of human use of the environment, a complex process involving multiple interlinked factors, causes and effects. In order to better understand these processes, the detection and classification of different urban morphologies is needed.
 
+<h2>The objective</h2>
+
+The aim of this project is to carry out Semantic Segmentation on space-borne derived data. The project is expected to provide a ML algorithm that will divide the identified built-up areas into different building classes (Residential and Non-Residential) for the general use of sustainability research and/or others.
+Given a set of satellite images and corresponding masks for these images, detailing which segments are residential and which are non residential, we trained a model to perform image segmentation and then used this model for inferring the segments of new unseen satellite images, and to calculate the proportion of residential and non residential areas in every image.
+
+<img src='images/image7.png'  width="550px"/>
+
 <h2>The dataset</h2>
 
 Our dataset is a collection of satellite images downloaded from Google Earth and their matching manually classified mask images, for residential and non residential areas.
@@ -38,10 +43,11 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 - 700, 10 meters resolution, satellite images of Europe - 11 bands (channels) – extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
 - 700 Masks of Residential vs Non Residential areas (“Blue”,“Red” below) – this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
+
 <table border=1 class="center">
 <tr>
-<td><img src='images/input.png' height='220px'/></td>
-<td><img src='images/mask.png' height='220px'/></td></tr>
+<td><img src='images/input.png' height='220px'/>
+<td><img src='images/mask.png' height='220px'/></tr>
 <tr>
 <td>An example of an input image
 </td>
@@ -54,14 +60,6 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 Orignially the dataset includes the following 11 bands:
 
 <img src='images/image1.png'  width="600px"/>
-
-
-<h2>The objective</h2>
-
-The aim of this project is to carry out Semantic Segmentation on space-borne derived data. The project is expected to provide a ML algorithm that will divide the identified built-up areas into different building classes (Residential and Non-Residential) for the general use of sustainability research and/or others.
-Given a set of satellite images and corresponding masks for these images, detailing which segments are residential and which are non residential, we trained a model to perform image segmentation and then used this model for inferring the segments of new unseen satellite images, and to calculate the proportion of residential and non residential areas in every image.
-
-<img src='images/image7.png'  width="550px"/>
 
 
 <h2>The methods we used </h2>
@@ -261,7 +259,8 @@ The image above shows our predictions on the SAITAMA area in Japan, this area is
 Here is a sample output of the loss and dice score during training with evaluation, along with the evaluation classification report and confusion matrix.
 We were able to get an average of 0.889 Dice on the evaluation data:
 
-<table border=1 style="margin-left: auto;  margin-right: auto; text-align:center;">
+<table border=1 class="center">
+
 <tr>
 <td><img src='images/image13.png'/></td>
 <td><img src='images/conf_mtx.png'/></td>
@@ -273,7 +272,7 @@ We were able to get an average of 0.889 Dice on the evaluation data:
 </tr>
 </table>
 
-<table border=1 style="margin-left: auto;  margin-right: auto; text-align:center;">
+<table border=1 class="center">
 
 <tr>
 <td><img src='images/image22.png'/></td>
@@ -370,3 +369,4 @@ See the [Git repo](https://github.com/lleviraz/urban_segmentation)
 
 
 <b>Thanks for reading</b>
+</body>
