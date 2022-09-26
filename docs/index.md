@@ -16,11 +16,7 @@
 
 Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl) (Leiden University),[Yoav Peled](yoav.pld@gmail.com) (RU school of Sustainability),[Leon Anavy](leon.anavy@gmail.com) and [Alon Oring](alon.oring88@gmail.com) (RU school of CS)
 
-<div class="center">
-
 By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)
-
-</div>
 
 <h1>Abstract</h1>
 
