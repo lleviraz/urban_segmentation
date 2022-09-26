@@ -1,15 +1,8 @@
-<head><style>    
-.center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align:center;
-  /* display: block; */
-}</style></head>
-
-
-<img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com" class="center" style="display: block;" width="600px">
-
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
+
+<p align="center">
+  <img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com" style="display: block;" width="600px">
+</p>
 
 Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl) (Leiden University),[Yoav Peled](yoav.pld@gmail.com) (RU school of Sustainability),[Leon Anavy](leon.anavy@gmail.com) and [Alon Oring](alon.oring88@gmail.com) (RU school of CS)
 
@@ -29,25 +22,23 @@ The aim of this project is to carry out Semantic Segmentation on space-borne der
 
 Given a set of satellite images and corresponding masks for these images, detailing which segments are residential and which are non residential, we trained a model to perform image segmentation and then used this model for inferring the segments of new unseen satellite images, and to calculate the proportion of residential and non residential areas in every image.
 
-<img src='images/image7.png'  width="550px"/>
+<img src='images/image7.png'  width="650px"/>
 
 <h2>The dataset</h2>
 
 Our dataset is a collection of satellite images downloaded from Google Earth and their matching manually classified mask images, for residential and non residential areas.
 
 - 700 satellite images of Europe - 11 bands (channels), 10 meters resolution , extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
-- 700 Masks of Residential vs Non Residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
+- 700 masks of residential vs non residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
-<table border=1 class="center">
+<table border=1>
 <tr>
 <td><img src='images/input.png' height='220px'/>
 <td><img src='images/mask.png' height='220px'/>
 </tr>
 <tr>
-<td>An example of an input image
-</td>
-<td>An example of a mask
-</td>
+<td>An example of an input image</td>
+<td>An example of a mask</td>
 </tr>
 </table>
 
@@ -105,7 +96,7 @@ The original four classes in the mask are shown below, however we merged classes
 - 1 for all other areas (merged into class 0 in before training)
 - **0** for no-data
 
-<table border=1 class="center">
+<table border=1>
 
 <tr>
 
@@ -173,12 +164,12 @@ To deal with that we experimented with a few metrics:
 
 1. **IoU (Jaccard Index), Dice Score** - both measure the overlap of the predicted mask and the original one. Intuitively, a successful prediction is one which maximizes the overlap between the predicted and true objects.  The IoU and Dice scores are calculated **for each class separately** and then averaged over all classes to provide a global, mean IoU and Dice scores
 
-<img src="images/image3.png" height="50px" class="center">
+<img src="images/image3.png" height="50px">
 
 2. **Pixel Accuracy (Foreground and overall)**
 Report the percent of correctly classified pixels in the mask, The pixel accuracy is reported for each class separately as well as globally across all classes.(accuracy of the 250 and 250 classes only, ignoring the background classes)
 
-<img src="images/image16.png" class="center" height="50px">
+<img src="images/image16.png" height="50px">
 
 Eventually we measured the model performance using the **Foreground accuracy and the Dice Score**.
 
@@ -188,22 +179,22 @@ For the same class imbalance issue we experimented with the following loss funct
 Predicted Mask is a pixel wise probability for each class
 Each pixel can belong to exactly one target class
 
-<img src="images/image15.png" height="50px" class="center">
+<img src="images/image15.png" height="50px">
 
 2. Focal Loss
 Works best with highly-imbalanced dataset, easy-to-classify observations are down-weighted in the loss calculation
 
-<img src="images/image20.png" height="50px" class="center">
+<img src="images/image20.png" height="50px">
 
 3. Dice Loss
 Inspired by the Dice Coefficient, a metric to evaluate the overlapping areas  (good at FG vs BG but less in "easy-to-classify" vs hard)
 
-<img src="images/image19.png" height="50px" class="center">
+<img src="images/image19.png" height="50px">
 
 4. Combined Dice Focal
 Combined Focal and Dice Loss, to balance between global (Dice) and local (Focal) features on the target mask
 
-<img src="images/image18.png" height="50px" class="center">
+<img src="images/image18.png" height="50px">
 
 Initially when using the [Fastai framework,](https://docs.fast.ai/) the best results were obtained using a ["Combined Focal and Dice loss"](https://docs.fast.ai/losses.html#DiceLoss) , which is able to balance between global (Dice) and local (Focal) features on the target mask, but when switching to a more simple Pytorch implementation, the **CrossEntropyLossFlat** was working better in our training procedure.
 
@@ -222,21 +213,14 @@ We used an **AdamW** optimizer with learning rate of **5e-04** and weight decay 
 To load the data efficiently in batches in the training loop, we created our own Pytorch Dataset class  "S2ESMDataset" (code can be found [here](/notebooks/libs/training.py))
 
 
-<table border=1 class="center">
-
+<table border=1>
 <tr>
-
 <td><img src='images/image9.png'/></td>
-
 </tr>
-
 <tr>
-
-<td>A sample of an input image before and after MinMax scaling and the corresponding mask 
-(on the True mask: blue is residential, red for non-residential and green is other)</td>
-
+<td>A sample of an input image before and after MinMax scaling and the corresponding mask (on the True mask: blue is residential, red for non-residential and green is other)
+</td>
 </tr>
-
 </table>
 
 
@@ -253,13 +237,13 @@ We had to develop some augmentation enhancements for enabling them to work with 
 
 Using the augmentations, especially a very mild "2 pixels" Random Sized Crop, solved an interesting problem where the model tended to predict the non residential class close to the image borders as seen in the image below (squares with red borders on the left):
 
-<img src="images/image29.png" width='500px' class="center">
+<img src="images/image29.png" width='500px'>
 
 The image above shows our predictions on the SAITAMA area in Japan, this area is considered as an unseen test data, the model was not trained on it, still we can see quite nice results (on the right image)
 
 Here is a sample output of the loss and dice score during training with evaluation, along with the evaluation classification report and confusion matrix. We were able to get an average of **0.889 Dice** on the evaluation data:
 
-<table border=1 class="center">
+<table border=1>
 
 <tr>
 
@@ -279,7 +263,7 @@ Here is a sample output of the loss and dice score during training with evaluati
 
 </table>
 
-<table border=1 class="center">
+<table border=1>
 
 <tr>
 
@@ -303,7 +287,7 @@ Here is a sample output of the loss and dice score during training with evaluati
 
 Model evaluation is done in two ways, a Dice score calculation and a visual inspection between the true and predicted masks:
 
-<img src="images/image10.png" width='600px' class="center">
+<img src="images/image10.png" width='600px'>
 
 
 Here is a again the plot presented in the preprocessing section, where we can see the comparison of the BU area ratio of the predicted masks (the blue dots) compared to the the orange diagonal line which represents the BU area ground truth of the test set.
