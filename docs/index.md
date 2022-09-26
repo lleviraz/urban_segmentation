@@ -33,16 +33,11 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 - 700 satellite images of Europe - 11 bands (channels), 10 meters resolution , extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
 - 700 masks of residential vs non residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
-<table border=1>
-<tr>
-<td><img src='images/input.png' height='220px'/>
-<td><img src='images/mask.png' height='220px'/>
-</tr>
-<tr>
-<td>An example of an input image</td>
-<td>An example of a mask</td>
-</tr>
-</table>
+
+| An input image example | An mask example | 
+| :----------: | :----------: |
+| <img src='images/input.png' height='220px'/> | <img src='images/mask.png' height='220px'/> |
+
 
 Orignially the dataset includes the following 11 bands:
 
@@ -101,16 +96,10 @@ The original four classes in the mask are shown below, however we merged classes
 - 1 for all other areas (merged into class 0 in before training)
 - **0** for no-data
 
-<table border=1>
-<tr>
-<td><img src='images/image23.png'  width="400px"/></td>
-</tr>
-<tr>
-<td>The image above shows a specific example of a mask before and after the reprojection. The images dimensions are approx. 300x300 and the masks 200x200, and in addition the CRS of the mask is different. The preprocessing takes care of both aligning the CRS of the mask to its matching image, and align all the images and masks to be in 300x300 resolution, which explains why the pixel counts is much higher for every class</td>
-</tr>
-</table>
-
-<br>
+| Preprocessing example |
+| :----------: |
+| <img src='images/image23.png'  width="400px"/> |
+| The image above shows a specific example of a mask before and after the reprojection. The images dimensions are approx. 300x300 and the masks 200x200, and in addition the CRS of the mask is different. The preprocessing takes care of both aligning the CRS of the mask to its matching image, and align all the images and masks to be in 300x300 resolution, which explains why the pixel counts is much higher for every class |
 
 The following plot shows the BU area proportion in the preprocessed masks (blue dots) compared to the original mask (orange diagonal line), we believe that these results are showing that the preprocessing kept the original BU area proportions quite nicely:
 
@@ -224,15 +213,10 @@ We split the data to 90%-10% train/test split, and used a clean Pytorch UNET imp
 We used an **AdamW** optimizer with learning rate of **5e-04** and weight decay of **1e-04**, and a small batch size of **6** because of our Google Colab GPU capacity limitations.
 To load the data efficiently in batches in the training loop, we created our own Pytorch Dataset class  "S2ESMDataset" (code can be found [here](/notebooks/libs/training.py))
 
-<table border=1>
-<tr>
-<td><img src='images/image9.png'/></td>
-</tr>
-<tr>
-<td>A sample of an input image before and after MinMax scaling and the corresponding mask (on the True mask: blue is residential, red for non-residential and green is other)
-</td>
-</tr>
-</table>
+| Training input example |
+| :----------: |
+| <img src='images/image9.png'/> |
+| A sample of an input image before and after MinMax scaling and the corresponding mask (on the True mask: blue is residential, red for non-residential and green is other) |
 
 Note: in the initial stages of the project we attempted to use the [Fastai framework,](https://docs.fast.ai/), which includes a UNET architecture (unet_learner), and provided a very smooth quick start for segemtnation, however with these experiments we were not able to achieve satisfying performance on the test data.
 
@@ -255,27 +239,17 @@ The image above shows our predictions on the SAITAMA area in Japan, this area is
 
 Here is a sample output of the loss and dice score during training with evaluation, along with the evaluation classification report and confusion matrix. We were able to get an average of **0.889 Dice** on the evaluation data:
 
-<table border=1>
-<tr>
-<td><img src='images/image13.png'/></td>
-<td><img src='images/conf_mtx.png'/></td>
-</tr>
-<tr>
-<td>Training and validation loss and  Dice score</td>
-<td>Classification confusion matrix (number of pixels)</td>
-</tr>
-</table>
+|  |  |
+| :----------: | :----------: |
+| <img src='images/image13.png'/> | <img src='images/conf_mtx.png'/> |
+| Training and validation loss and  Dice score  | Classification confusion matrix (number of pixels) |
 
-<table border=1>
-<tr>
-<td><img src='images/image22.png'/></td>
-<td><img src='images/cls_report.png'/></td>
-</tr>
-<tr>
-<td>Dice score results per loss function (maximum and average)</td>
-<td>Classification report for the 3 classes</td>
-</tr>
-</table>
+<br/>
+
+|  |  |
+| :----------: | :----------: |
+| <img src='images/image22.png'/> | <img src='images/cls_report.png'/> |
+| Dice score results per loss function (maximum and average) | Classification report for the 3 classes |
 
 ## Results
 
