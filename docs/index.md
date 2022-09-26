@@ -8,15 +8,15 @@ Mentors: [Tomer Fishman](t.fishman@cml.leidenuniv.nl) (Leiden University),[Yoav 
 
 By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)
 
-# Abstract
+## Abstract
 
-## The domain
+### The domain
 
 Satellite-based sensors capture imagery in visible light and in other wavelengths such as infrared and radar, which reveals a view of heterogeneous environments, composed of natural, agricultural, and built-up areas. These, in turn, vary between different contexts, including natural ones such as continents, climates, water bodies and biomes, and man-made ones such as economic activities, population densities, architectural styles, and urban planning.
 
 Global environmental change is caused by expansion of human use of the environment, a complex process involving multiple interlinked factors, causes and effects. In order to better understand these processes, the detection and classification of different urban morphologies is needed.
 
-## The objective
+### The objective
 
 The aim of this project is to carry out Semantic Segmentation on space-borne derived data. The project is expected to provide a ML algorithm that will divide the identified built-up areas into different building classes (Residential and Non-Residential) for the general use of sustainability research and/or others.
 
@@ -26,18 +26,16 @@ Given a set of satellite images and corresponding masks for these images, detail
   <img src='images/image7.png'  width="650px"/>
 </p>
 
-## The dataset
+### The dataset
 
 Our dataset is a collection of satellite images downloaded from Google Earth and their matching manually classified mask images, for residential and non residential areas.
 
 - 700 satellite images of Europe - 11 bands (channels), 10 meters resolution , extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
 - 700 masks of residential vs non residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
-
-| An input image example | An mask example | 
+| An input image example | An mask example |
 | :----------: | :----------: |
 | <img src='images/input.png' height='220px'/> | <img src='images/mask.png' height='220px'/> |
-
 
 Orignially the dataset includes the following 11 bands:
 
@@ -45,7 +43,7 @@ Orignially the dataset includes the following 11 bands:
   <img src='images/image1.png'  width="650px"/>
 </p>
 
-## The methods we used
+### The methods we used
 
 For Image Segmentation use cases, and more specifically for Satellite images segmentation, one of the most popular approaches is to use a neural network which is a flavor of the [U-Net architecture](https://en.wikipedia.org/wiki/U-Net) (originally developed for biomedical image segmentation). The network is based on the fully convolutional neural network, where the name "U-NET" comes from its U-shaped encoder-decoder network architecture, which originally consisted of 4 encoder blocks and 4 decoder blocks that are connected via a latent space. The encoder halves the spatial dimensions and doubles the number of filters (feature channels) at each encoder block, and the decoder doubles the spatial dimensions and halves the number of feature channels
 
@@ -57,7 +55,7 @@ Image source [U-net from paperswithcode](https://paperswithcode.com/method/u-net
 
 In addition we also experimented with the "DeepLabV3" which is currently considered to be the state of the art for image segmentation, however in our experiments we got slightly better results with UNET.
 
-## Major challenges
+### Major challenges
 
 1. One of the main challenges was to learn how to work with **multi-channel GeoTIFF images**, instead of the "default" RGB channels; more details on how we approached it in the next section.
 
@@ -69,7 +67,7 @@ In addition we also experimented with the "DeepLabV3" which is currently conside
 
 5. Data export - the data export process from Google Earth engine is a very sensitive one, in order to provide an end-2-end pipeline of data export and inference, we learned to work with the GEE for exporting new images.
 
-## Related work
+### Related work
 
 This project does not follow any particular single anchor paper, however the methods we applied for preprocessing, training and evaluation of the model are inspired by the following papers:
 
@@ -81,9 +79,9 @@ This project does not follow any particular single anchor paper, however the met
 
 4. [Separating Built-Up Areas from Bare Land in Mediterranean Cities Using Sentinel-2A Imagery(Paria Ettehadi et al. 2019)](https://www.researchgate.net/publication/330994618_Separating_Built-Up_Areas_from_Bare_Land_in_Mediterranean_Cities_Using_Sentinel-2A_Imagery) Inspired by our mentors and this paper we added 4 additional bands to every image - more details in the Preprocessing section below
 
-# Major Activities
+## Major Activities
 
-## Preprocessing
+### Preprocessing
 
 As mentioned before, one of the main challenges was to learn how to work with multi-channel GeoTIFF images, instead of the "default" RGB channels.
 We used the [Rasterio python library](https://rasterio.readthedocs.io/en/latest/) which gives access to geospatial raster data processing and manipulation.
@@ -98,7 +96,7 @@ The original four classes in the mask are shown below, however we merged classes
 
 | Preprocessing example |
 | :----------: |
-| <img src='images/image23.png'  width="400px"/> |
+| <img src='images/image23.png'  width="500px"/> |
 | The image above shows a specific example of a mask before and after the reprojection. The images dimensions are approx. 300x300 and the masks 200x200, and in addition the CRS of the mask is different. The preprocessing takes care of both aligning the CRS of the mask to its matching image, and align all the images and masks to be in 300x300 resolution, which explains why the pixel counts is much higher for every class |
 
 The following plot shows the BU area proportion in the preprocessed masks (blue dots) compared to the original mask (orange diagonal line), we believe that these results are showing that the preprocessing kept the original BU area proportions quite nicely:
@@ -151,13 +149,13 @@ Using a plain "accuracy" metric in such cases would yield to high accuracy but p
 
 To deal with that we experimented with a few metrics:
 
-1. **IoU (Jaccard Index), Dice Score** - both measure the overlap of the predicted mask and the original one. Intuitively, a successful prediction is one which maximizes the overlap between the predicted and true objects.  The IoU and Dice scores are calculated **for each class separately** and then averaged over all classes to provide a global, mean IoU and Dice scores
+1.**IoU (Jaccard Index), Dice Score** - both measure the overlap of the predicted mask and the original one. Intuitively, a successful prediction is one which maximizes the overlap between the predicted and true objects.  The IoU and Dice scores are calculated **for each class separately** and then averaged over all classes to provide a global, mean IoU and Dice scores
 
 <p align="center">
   <img src="images/image3.png" height="50px">
 </p>
 
-2. **Pixel Accuracy (Foreground and overall)**
+2.**Pixel Accuracy (Foreground and overall)**
 Report the percent of correctly classified pixels in the mask, The pixel accuracy is reported for each class separately as well as globally across all classes.(accuracy of the 250 and 250 classes only, ignoring the background classes)
 
 <p align="center">
@@ -168,7 +166,7 @@ Eventually we measured the model performance using the **Foreground accuracy and
 
 For the same class imbalance issue we experimented with the following loss functions - measuring the per pixel accuracy in the predicted masks vs the original ones:
 
-1. **Cross Entropy Loss (Flat)**
+1.**Cross Entropy Loss (Flat)**
 Predicted Mask is a pixel wise probability for each class
 Each pixel can belong to exactly one target class
 
@@ -176,21 +174,21 @@ Each pixel can belong to exactly one target class
   <img src="images/image15.png" height="50px">
 </p>
 
-2. Focal Loss
+2.Focal Loss
 Works best with highly-imbalanced dataset, easy-to-classify observations are down-weighted in the loss calculation
 
 <p align="center">
   <img src="images/image20.png" height="50px">
 </p>
 
-3. Dice Loss
+3.Dice Loss
 Inspired by the Dice Coefficient, a metric to evaluate the overlapping areas  (good at FG vs BG but less in "easy-to-classify" vs hard)
 
 <p align="center">
   <img src="images/image19.png" height="50px">
 </p>
 
-4. Combined Dice Focal
+4.Combined Dice Focal
 Combined Focal and Dice Loss, to balance between global (Dice) and local (Focal) features on the target mask
 
 <p align="center">
@@ -256,7 +254,7 @@ Here is a sample output of the loss and dice score during training with evaluati
 Model evaluation is done in two ways, a Dice score calculation and a visual inspection between the true and predicted masks:
 
 <p align="center">
-  <img src="images/image10.png" width='600px'>
+  <img src="images/image10.png" width='800px'>
 </p>
 
 Here is a again the plot presented in the preprocessing section, where we can see the comparison of the BU area ratio of the predicted masks (the blue dots) compared to the the orange diagonal line which represents the BU area ground truth of the test set.
@@ -287,7 +285,7 @@ There are 3 layers in it:
 3. Our prediction mask, in green(residential), red(non-residential)
 
 <p align="center">
-  <img src="images/image12.png"  width="500px"/>
+  <img src="images/image12.png"  width="700px"/>
 </p>
 
 ## Summary
@@ -322,35 +320,35 @@ A more advanced use case can be to train new models based on new future data - a
   <img src="images/image6.png"  width="500px"/>
 </p>
 
-## Next Steps and Future directions
+### Next Steps and Future directions
 
 The ESM data we were using is from 2019, a periodic retraining of the model with fresh images and masks, if available, will probably help keep the model useful for the long range.
 
 A possible future enhancement can be to look at a sequence of images and masks along a period of time, and build a model that can predict the urban segmentation proportion changes over time.
 
-## Code and resources
+### Code and resources
 
 The code and trained model can be found at the:
 
 [Github repo](https://github.com/lleviraz/urban_segmentation)
 
-## References
+### References
 
-### Data sources and frameworks
+#### Data sources and frameworks
 
 1. [Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en) (source for the satellite images)
 
 2. [Copernicus](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) - ESM data 2019 release (source for the segmentation masks)
 
-3. [U-Net Explained](https://paperswithcode.com/method/u-net) | Papers With Code
+3. [U-Net Explained](https://paperswithcode.com/method/u-net) - Papers With Code
 
-4. [DeepLabv3 Explained](https://paperswithcode.com/method/deeplabv3) | Papers With Code
+4. [DeepLabv3 Explained](https://paperswithcode.com/method/deeplabv3) - Papers With Code
 
 5. [Fastai framework](https://www.fast.ai/)
 
 6. [Rasterio](https://rasterio.readthedocs.io/en/latest/)
 
-### Papers
+#### Papers
 
 7. [Semantic Segmentation and Edge Detection](https://www.mdpi.com/1471460) (Ghandorh H. et al 2022)
 
