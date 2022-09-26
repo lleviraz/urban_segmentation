@@ -7,7 +7,7 @@
 }</style></head>
 
 
-<img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com/" class="center" style="display: block;" width="600px">
+<img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com" class="center" style="display: block;" width="600px">
 
 <h1 style="text-align:center;">Semantic Segmentation of Built-Up Areas in Satellite Imagery</h1>
 
@@ -39,27 +39,16 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 - 700 Masks of Residential vs Non Residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
 <table border=1 class="center">
-
 <tr>
-
 <td><img src='images/input.png' height='220px'/>
-
 <td><img src='images/mask.png' height='220px'/>
-
 </tr>
-
 <tr>
-
 <td>An example of an input image
-
 </td>
-
 <td>An example of a mask
-
 </td>
-
 </tr>
-
 </table>
 
 Orignially the dataset includes the following 11 bands:
