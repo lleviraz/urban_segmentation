@@ -290,6 +290,8 @@ There are 3 layers in it:
 
 ## Summary
 
+Although we always believed, it was a nice surprise to see that the model, that was trained on European images and masks, can actually predict the masks of the unseen SAITAMA area in Japan, and not in a bad quality.
+
 We learned a lot from this project, mainly the machine learning aspects , but also about managing such an interactive project with the stakeholders, and evolving requirements.
 
 We conducted monthly meetings with our mentors to present the project status and collect their feedback.
