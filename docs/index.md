@@ -37,13 +37,13 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 | :----------: | :----------: |
 | <img src='images/input.png' height='220px'/> | <img src='images/mask.png' height='220px'/> |
 
-Orignially the dataset includes the following 11 bands:
+Originally the dataset includes the following 11 bands:
 
 <p align="center">
   <img src='images/image1.png'  width="650px"/>
 </p>
 
-### The methods we used
+### Methods
 
 For Image Segmentation use cases, and more specifically for Satellite images segmentation, one of the most popular approaches is to use a neural network which is a flavor of the [U-Net architecture](https://en.wikipedia.org/wiki/U-Net) (originally developed for biomedical image segmentation). The network is based on the fully convolutional neural network, where the name "U-NET" comes from its U-shaped encoder-decoder network architecture, which originally consisted of 4 encoder blocks and 4 decoder blocks that are connected via a latent space. The encoder halves the spatial dimensions and doubles the number of filters (feature channels) at each encoder block, and the decoder doubles the spatial dimensions and halves the number of feature channels
 
@@ -111,7 +111,7 @@ The following histogram shows the same information, the preservation of the prop
   <img src="images/image25.png"  width="400px"/>
 </p>
 
-### Feature Engeneering
+### Feature Engineering
 
 Based on some recommendations and references dealing with similar tasks ([this paper](https://www.researchgate.net/publication/330994618_Separating_Built-Up_Areas_from_Bare_Land_in_Mediterranean_Cities_Using_Sentinel-2A_Imagery)), we added 4 additional channels to every image(originally exported with 11 bands), which are a combination of the existing channels
 
@@ -216,7 +216,7 @@ To load the data efficiently in batches in the training loop, we created our own
 | <img src='images/image9.png'/> |
 | A sample of an input image before and after MinMax scaling and the corresponding mask (on the True mask: blue is residential, red for non-residential and green is other) |
 
-Note: in the initial stages of the project we attempted to use the [Fastai framework,](https://docs.fast.ai/), which includes a UNET architecture (unet_learner), and provided a very smooth quick start for segemtnation, however with these experiments we were not able to achieve satisfying performance on the test data.
+Note: in the initial stages of the project we attempted to use the [Fastai framework,](https://docs.fast.ai/), which includes a UNET architecture (unet_learner), and provided a very smooth quick start for segmentation, however with these experiments we were not able to achieve satisfying performance on the test data.
 
 Our first approach was to verify that the model is capable of learning by making sure it can overfit for a small dataset, this was successful, and the model was able to imitate the required masks perfectly.
 
@@ -257,7 +257,7 @@ Model evaluation is done in two ways, a Dice score calculation and a visual insp
   <img src="images/image10.png" width='800px'>
 </p>
 
-Here is a again the plot presented in the preprocessing section, where we can see the comparison of the BU area ratio of the predicted masks (the blue dots) compared to the the orange diagonal line which represents the BU area ground truth of the test set.
+Here is again the plot presented in the preprocessing section, where we can see the comparison of the BU area ratio of the predicted masks (the blue dots) compared to the orange diagonal line which represents the BU area ground truth of the test set.
 
 Roughly speaking the distance from the line is the error margin of every image, and we can see the high correlation (we used Spearman) between the predictions and the ground truth:
 
