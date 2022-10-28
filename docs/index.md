@@ -33,7 +33,7 @@ Our dataset is a collection of satellite images downloaded from Google Earth and
 - 700 satellite images of Europe - 11 bands (channels), 10 meters resolution , extracted from Google Earth Engine (GEE) ([Sentinel 2 surface imagery on Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR?hl=en))
 - 700 masks of residential vs non residential areas ("Blue","Red" below) , this is a per pixel segmentation of Residential (Blue), non Residential (Red), and other areas (Green)  - available from the [Copernicus website (for Europe only)](https://land.copernicus.eu/pan-european/GHSL/european-settlement-map/esm-2015-release-2019?tab=metadata) (Resolution of 10m, size will conform to the input image size)
 
-| An input image example | An mask example |
+| An input image example | A mask example |
 | :----------: | :----------: |
 | <img src='images/input.png' height='220px'/> | <img src='images/mask.png' height='220px'/> |
 
