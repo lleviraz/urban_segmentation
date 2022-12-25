@@ -3,7 +3,7 @@
 <p align="center">
   <img src="images/bg.jpg" alt="free image downloded from https://www.pexels.com" style="display: block;" width="600px">
 </p>
-<p align="center">Image source:<a href='https://commons.wikimedia.org/wiki/File:ISS-47_Italy_night_view.jpg'>Wikimedia Commons</a></p>
+<p align="center">Image source: <a href='https://commons.wikimedia.org/wiki/File:ISS-47_Italy_night_view.jpg'>wikimedia commons</a></p>
 
 By: [Eli Terris-Assa](eliterrisassa@gmail.com) and [Liad Levi-Raz](liad.leviraz@gmail.com)
 
